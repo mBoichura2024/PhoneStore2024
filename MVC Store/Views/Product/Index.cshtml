@@ -1,0 +1,18 @@
+﻿@model Phone[]
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @for (int i = 0; i < @Model.Length; ++i)
+    {
+        <div class="col">
+            <div class="card h-100">
+                <img src="https://www.ipeople.in.ua/files/products/2832.800x600.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@Model[i].Name</h5>
+                    <p class="card-text">This is @Model[i].Category. Price is $@Model[i].Price</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<a class="btn btn-success" href="https://google.com" role="button">Google</a>
