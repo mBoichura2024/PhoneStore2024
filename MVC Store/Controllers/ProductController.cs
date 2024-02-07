@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MVC_Store.Data;
 using MVC_Store.Models;
 using System.Diagnostics;
 
@@ -6,27 +8,56 @@ namespace MVC_Store.Controllers
 {
     public class ProductController : Controller
     {
-        public ProductController()
+        ApplicationDbContext _context;
+        public ProductController(ApplicationDbContext context)
         {
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            Phone[] phone = new Phone[3];
-            phone[0] = new Phone();
-            phone[0].Name = "IPhone 7";
-            phone[0].Category = "Smartphone";
-            phone[0].Price = 500;
-            phone[1] = new Phone();
-            phone[1].Name = "IPhone 8";
-            phone[1].Category = "Smartphone";
-            phone[1].Price = 600;
-            phone[2] = new Phone();
-            phone[2].Name = "IPhone 9";
-            phone[2].Category = "Smartphone";
-            phone[2].Price = 700;
+            Phone[] phones = _context.Phones.ToArray();
+            _context.Categories.ToList();
+
+            return View(phones);
+        }
+
+        [HttpGet]
+        public IActionResult AddPhone()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddPhone(Phone phoneFromForm)
+        {
+            _context.Phones.Add(phoneFromForm);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult EditPhone(int phoneId)
+        {
+            Phone phone = _context.Phones.Find(phoneId);
+            //_context.Categories.ToList();
 
             return View(phone);
+        }
+        [HttpPost]
+        public IActionResult EditPhone(Phone phoneFromForm)
+        {
+            _context.Phones.Update(phoneFromForm);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult DeletePhone(int phoneId)
+        {
+            Phone phone = _context.Phones.Find(phoneId);
+            _context.Phones.Remove(phone);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
     }
 }
