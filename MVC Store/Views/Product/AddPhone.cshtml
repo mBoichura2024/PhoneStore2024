@@ -1,0 +1,16 @@
+﻿@model Phone
+
+<form method="post">
+    <div class="mb-3">
+        <input type="hidden" asp-for="@Model.Name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Phone category</label>
+        <input type="text" asp-for="@Model.CategoryId" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Phone price</label>
+        <input type="text" asp-for="@Model.Price" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+    </div>
+    <button type="submit" class="btn btn-primary">Add phone</button>
+</form>
