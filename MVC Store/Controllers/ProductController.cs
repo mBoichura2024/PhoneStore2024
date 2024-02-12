@@ -1,23 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessLogic.Services;
+using DataAccess;
+using DataAccess.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MVC_Store.Data;
-using MVC_Store.Models;
 using System.Diagnostics;
 
-namespace MVC_Store.Controllers
+namespace UI.Controllers
 {
     public class ProductController : Controller
     {
-        ApplicationDbContext _context;
-        public ProductController(ApplicationDbContext context)
+        ProductService _productService;
+        CategoryService _categoryService;
+        public ProductController(ProductService productService, CategoryService categoryService)
         {
-            _context = context;
+            _productService = productService;
+            _categoryService = categoryService;
         }
 
         public IActionResult Index()
         {
-            Phone[] phones = _context.Phones.ToArray();
-            _context.Categories.ToList();
+            Phone[] phones = _productService.GetAll();
+            _categoryService.GetAll();
 
             return View(phones);
         }
@@ -30,33 +33,28 @@ namespace MVC_Store.Controllers
         [HttpPost]
         public IActionResult AddPhone(Phone phoneFromForm)
         {
-            _context.Phones.Add(phoneFromForm);
-            _context.SaveChanges();
+            _productService.Add(phoneFromForm);
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public IActionResult EditPhone(int phoneId)
         {
-            Phone phone = _context.Phones.Find(phoneId);
-            //_context.Categories.ToList();
+            Phone phone = _productService.Get(phoneId);
+            //TODO GetCategories
 
             return View(phone);
         }
         [HttpPost]
         public IActionResult EditPhone(Phone phoneFromForm)
         {
-            _context.Phones.Update(phoneFromForm);
-            _context.SaveChanges();
+            _productService.Edit(phoneFromForm);
             return RedirectToAction("Index");
         }
 
         public IActionResult DeletePhone(int phoneId)
         {
-            Phone phone = _context.Phones.Find(phoneId);
-            _context.Phones.Remove(phone);
-            _context.SaveChanges();
-
+            _productService.Delete(phoneId);
             return RedirectToAction("Index");
         }
     }

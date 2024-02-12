@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace MVC_Store.Migrations
+namespace DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class Init : Migration

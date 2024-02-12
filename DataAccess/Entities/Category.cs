@@ -1,4 +1,4 @@
-namespace MVC_Store.Models
+namespace DataAccess.Entities
 {
     public class Category
     {
