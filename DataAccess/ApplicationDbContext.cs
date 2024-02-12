@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using DataAccess.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MVC_Store.Models;
 
-namespace MVC_Store.Data
+namespace DataAccess
 {
     public class ApplicationDbContext : IdentityDbContext
     {

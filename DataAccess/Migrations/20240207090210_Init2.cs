@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace MVC_Store.Migrations
+namespace DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class Init2 : Migration
