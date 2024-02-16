@@ -4,8 +4,8 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-MVC_Store-171d3678-0c7d-420e-9ac3-a58a7af74350</UserSecretsId>
-    <RootNamespace>MVC_Store</RootNamespace>
+    <UserSecretsId>aspnet-UI-171d3678-0c7d-420e-9ac3-a58a7af74350</UserSecretsId>
+    <RootNamespace>UI</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

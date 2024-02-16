@@ -1,5 +1,9 @@
 ﻿using DataAccess;
 using DataAccess.Entities;
+<<<<<<< Updated upstream
+=======
+using Microsoft.EntityFrameworkCore;
+>>>>>>> Stashed changes
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +20,7 @@ namespace BusinessLogic.Services
             _context = context;
         }
 
+<<<<<<< Updated upstream
         public List<Phone> Filter(string name)
         {
             List<Phone> phones = _context.Phones.ToList();
@@ -57,6 +62,39 @@ namespace BusinessLogic.Services
             Phone phone = Get(id);
             _context.Phones.Remove(phone);
             _context.SaveChanges();
+=======
+        public async Task<Phone> Get(int id)
+        {
+            return await _context.Phones.FindAsync(id);
+        }
+
+        public async Task<Phone[]> GetAll()
+        {
+            return await _context.Phones.ToArrayAsync();
+        }
+
+        public async Task Add(Phone product)
+        {
+            await _context.Phones.AddAsync(product);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Update(Phone product)
+        {
+            await Task.Run(() =>//TODO remove async
+            {
+                _context.Phones.Update(product);
+            });
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Delete(int productId)
+        {
+            Phone product = await Get(productId);
+            _context.Phones.Remove(product);
+            await _context.SaveChangesAsync();
+>>>>>>> Stashed changes
         }
     }
 }

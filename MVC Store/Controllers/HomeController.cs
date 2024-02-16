@@ -1,4 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+<<<<<<< Updated upstream
+=======
+using UI.Models;
+>>>>>>> Stashed changes
 using System.Diagnostics;
 using UI.Models;
 

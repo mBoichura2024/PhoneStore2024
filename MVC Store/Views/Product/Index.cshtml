@@ -10,12 +10,18 @@
                 <div class="card-body">
                     <h5 class="card-title">@Model[i].Name</h5>
                     <p class="card-text">This is @Model[i].Category.Name. Price is $@Model[i].Price</p>
-                    <a class="btn btn-success" asp-route-phoneId="@Model[i].Id" asp-action="EditPhone" role="button">Edit phone</a>
-                    <a class="btn btn-warning" asp-route-phoneId="@Model[i].Id" asp-action="DeletePhone" role="button">Delete phone</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="btn btn-success" asp-route-phoneId="@Model[i].Id" asp-action="EditPhone" role="button">Edit phone</a>
+                        <a class="btn btn-warning" asp-route-phoneId="@Model[i].Id" asp-action="DeletePhone" role="button">Delete phone</a>
+                    }
                 </div>
             </div>
         </div>
     }
 </div>
 
-<a class="btn btn-success" asp-action="AddPhone" role="button">Add new phone</a>
+@if (User.IsInRole("Admin"))
+{
+    <a class="btn btn-success" asp-action="AddPhone" role="button">Add new phone</a>
+}
