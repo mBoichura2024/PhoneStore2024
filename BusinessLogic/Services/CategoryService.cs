@@ -1,9 +1,6 @@
 ﻿using DataAccess;
 using DataAccess.Entities;
-<<<<<<< Updated upstream
-=======
 using Microsoft.EntityFrameworkCore;
->>>>>>> Stashed changes
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,35 +17,6 @@ namespace BusinessLogic.Services
             _context = context;
         }
 
-<<<<<<< Updated upstream
-        public Category Get(int id)
-        {
-            return _context.Categories.Find(id);
-        }
-
-        public Category[] GetAll()
-        {
-            return _context.Categories.ToArray();
-        }
-
-        public void Add(Category category)
-        {
-            _context.Categories.Add(category);
-            _context.SaveChanges();
-        }
-
-        public void Edit(Category category)
-        {
-            _context.Categories.Update(category);
-            _context.SaveChanges();
-        }
-
-        public void Delete(int id)
-        {
-            Category category = Get(id);
-            _context.Categories.Remove(category);
-            _context.SaveChanges();
-=======
         public async Task<Category> Get(int id)
         {
             return await _context.Categories.FindAsync(id);
@@ -77,7 +45,6 @@ namespace BusinessLogic.Services
             Category category = await Get(productId);
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
->>>>>>> Stashed changes
         }
     }
 }
