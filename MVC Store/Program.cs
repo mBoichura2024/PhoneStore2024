@@ -1,24 +1,24 @@
-using BusinessLogic.Services;
-using DataAccess;
-using DataAccess.Entities;
+using Core;
+using Core.Entities;
+using Core.Interfaces;
+using Core.Services;
+using Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using UI;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<Person>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
+InfrastructureExtensions.AddDbContextServices(builder.Services, connectionString);
+InfrastructureExtensions.AddIdentityServices(builder.Services);
+InfrastructureExtensions.AddRepositoryServices(builder.Services);
 
-builder.Services.AddScoped<ProductService>();
-builder.Services.AddScoped<CategoryService>();
+CoreExtensions.AddCustomServices(builder.Services);
+
+UIExtensions.AddServices(builder.Services);
 
 //test comment
 

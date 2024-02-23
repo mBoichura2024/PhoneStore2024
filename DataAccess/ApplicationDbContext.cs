@@ -1,10 +1,10 @@
-﻿using DataAccess.Entities;
+﻿using Core.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace DataAccess
+namespace Infrastructure
 {
-    public class ApplicationDbContext : IdentityDbContext<Person>
+    internal class ApplicationDbContext : IdentityDbContext<Person>
     {
         public DbSet<Phone> Phones { get; set; }
         public DbSet<Category> Categories { get; set; }
