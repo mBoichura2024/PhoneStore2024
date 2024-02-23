@@ -1,5 +1,5 @@
-﻿using DataAccess;
-using DataAccess.Entities;
+﻿using Core.Entities;
+using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,47 +7,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic.Services
+namespace Core.Services
 {
-    public class ProductService
+    internal class ProductService : IProductService
     {
-        ApplicationDbContext _context;
-        public ProductService(ApplicationDbContext context)
+        private readonly IRepository<Phone> _phoneRepo;
+        public ProductService(IRepository<Phone> phoneRepo)
         {
-            _context = context;
+            _phoneRepo = phoneRepo;
         }
 
         public async Task<Phone> Get(int id)
         {
-            return await _context.Phones.FindAsync(id);
+            return await _phoneRepo.GetByID(id);
         }
 
         public async Task<Phone[]> GetAll()
         {
-            return await _context.Phones.ToArrayAsync();
+            return await _phoneRepo.GetAll();
         }
 
         public async Task Add(Phone product)
         {
-            await _context.Phones.AddAsync(product);
-            await _context.SaveChangesAsync();
+            await _phoneRepo.Insert(product);
+            await _phoneRepo.Save();
         }
 
         public async Task Update(Phone product)
         {
-            await Task.Run(() =>//TODO remove async
-            {
-                _context.Phones.Update(product);
-            });
-
-            await _context.SaveChangesAsync();
+            await _phoneRepo.Update(product);
+            await _phoneRepo.Save();
         }
 
         public async Task Delete(int productId)
         {
-            Phone product = await Get(productId);
-            _context.Phones.Remove(product);
-            await _context.SaveChangesAsync();
+            var product = await Get(productId);
+            await _phoneRepo.Delete(product);
+            await _phoneRepo.Save();
         }
     }
 }

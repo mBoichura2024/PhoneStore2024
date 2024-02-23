@@ -1,5 +1,5 @@
-﻿using DataAccess;
-using DataAccess.Entities;
+﻿using Core.Entities;
+using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,44 +7,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessLogic.Services
+namespace Core.Services
 {
-    public class CategoryService
+    internal class CategoryService : ICategoryService
     {
-        ApplicationDbContext _context;
-        public CategoryService(ApplicationDbContext context)
+        private readonly IRepository<Category> _categoryRepo;
+        public CategoryService(IRepository<Category> categoryRepo)
         {
-            _context = context;
+            _categoryRepo = categoryRepo;
         }
 
         public async Task<Category> Get(int id)
         {
-            return await _context.Categories.FindAsync(id);
+            return await _categoryRepo.GetByID(id);
         }
 
         public async Task<Category[]> GetAll()
         {
-            return await _context.Categories.ToArrayAsync();
+            return await _categoryRepo.GetAll();
         }
 
         public async Task Add(Category category)
         {
-            await _context.Categories.AddAsync(category);
-            await _context.SaveChangesAsync();
+            await _categoryRepo.Insert(category);
+            await _categoryRepo.Save();
         }
 
-        public async Task Update(int categoryId)
+        public async Task Update(Category category)
         {
-            Category category = await Get(categoryId);
-            _context.Categories.Update(category);
-            await _context.SaveChangesAsync();
+            await _categoryRepo.Update(category);
+            await _categoryRepo.Save();
         }
 
-        public async Task Delete(int productId)
+        public async Task Delete(int categoryId)
         {
-            Category category = await Get(productId);
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            var category = await Get(categoryId);
+            await _categoryRepo.Delete(category);
+            await _categoryRepo.Save();
         }
     }
 }

@@ -1,19 +1,20 @@
-﻿using BusinessLogic.Services;
-using DataAccess;
-using DataAccess.Entities;
+﻿using Core.Services;
+using Infrastructure;
+using Core.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using Core.Interfaces;
 
 namespace UI.Controllers
 {
     public class ProductController : Controller
     {
-        ProductService _productService;
-        CategoryService _categoryService;
-        public ProductController(ProductService productService,
-                                 CategoryService categoryService)
+        IProductService _productService;
+        ICategoryService _categoryService;
+        public ProductController(IProductService productService,
+                                 ICategoryService categoryService)
         {
             _productService = productService;
             _categoryService = categoryService;
