@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Core.Interfaces;
+using Ardalis.Specification;
+using Ardalis.Specification.EntityFrameworkCore;
 
 namespace Infrastructure
 {
@@ -24,14 +26,30 @@ namespace Infrastructure
             await _context.SaveChangesAsync();
         }
 
+        public virtual async Task<TEntity> GetItemBySpec(ISpecification<TEntity> specification)
+        {
+            return await ApplySpecification(specification).FirstOrDefaultAsync();
+        }
+
+        public virtual async Task<List<TEntity>> GetListBySpec(ISpecification<TEntity> specification)
+        {
+            return await ApplySpecification(specification).ToListAsync();
+        }
+
+        private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specification)
+        {
+            var evaluator = new SpecificationEvaluator();
+            return evaluator.GetQuery(_dbSet, specification);
+        }
+
         public virtual async Task<TEntity> GetByID(object id)
         {
             return await _dbSet.FindAsync(id);
         }
 
-        public virtual async Task<TEntity[]> GetAll()
+        public virtual async Task<List<TEntity>> GetAll()
         {
-            return await _dbSet.ToArrayAsync();
+            return await _dbSet.ToListAsync();
         }
 
         public virtual async Task Insert(TEntity entity)

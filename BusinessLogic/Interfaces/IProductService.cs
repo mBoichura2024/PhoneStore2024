@@ -1,4 +1,6 @@
-﻿using Core.Entities;
+﻿using Ardalis.Specification;
+using Core.DTOs;
+using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,9 +12,11 @@ namespace Core.Interfaces
 {
     public interface IProductService
     {
-        public Task<Phone> Get(int id);
+        public Task<List<PhoneDto>> GetAllWIthCateg();
 
-        public Task<Phone[]> GetAll();
+        public Task<PhoneDto> Get(int id);
+
+        public Task<List<Phone>> GetAll();
 
         public Task Add(Phone category);
 

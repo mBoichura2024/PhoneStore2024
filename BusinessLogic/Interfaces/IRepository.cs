@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Ardalis.Specification;
+using Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +13,13 @@ namespace Core.Interfaces
     {
         public Task Save();
 
+        public Task<TEntity> GetItemBySpec(ISpecification<TEntity> specification);
+
+        public Task<List<TEntity>> GetListBySpec(ISpecification<TEntity> specification);
+
         public Task<TEntity> GetByID(object id);
 
-        public Task<TEntity[]> GetAll();
+        public Task<List<TEntity>> GetAll();
 
         public Task Insert(TEntity entity);
 

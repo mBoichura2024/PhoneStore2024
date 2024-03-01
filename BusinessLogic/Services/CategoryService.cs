@@ -22,7 +22,7 @@ namespace Core.Services
             return await _categoryRepo.GetByID(id);
         }
 
-        public async Task<Category[]> GetAll()
+        public async Task<List<Category>> GetAll()
         {
             return await _categoryRepo.GetAll();
         }

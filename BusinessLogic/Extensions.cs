@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Core
 {
@@ -18,6 +19,10 @@ namespace Core
         {
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
+        }
+        public static void AddAutoMapper(IServiceCollection services)
+        {
+            services.AddAutoMapper(typeof(AppProfiles));
         }
     }
 }
