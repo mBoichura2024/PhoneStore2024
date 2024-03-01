@@ -22,8 +22,7 @@ namespace UI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            Phone[] phones = await _productService.GetAll();
-            await _categoryService.GetAll();
+            var phones = await _productService.GetAllWIthCateg();
 
             return View(phones);
         }
@@ -43,7 +42,7 @@ namespace UI.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditPhone(int phoneId)
         {
-            Phone phone = await _productService.Get(phoneId);
+            var phone = await _productService.Get(phoneId);
             return View(phone);
         }
         [HttpPost]

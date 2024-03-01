@@ -12,7 +12,7 @@ namespace Core.Interfaces
     {
         public Task<Category> Get(int id);
 
-        public Task<Category[]> GetAll();
+        public Task<List<Category>> GetAll();
 
         public Task Add(Category category);
 

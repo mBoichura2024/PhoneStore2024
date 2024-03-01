@@ -17,6 +17,7 @@ InfrastructureExtensions.AddIdentityServices(builder.Services);
 InfrastructureExtensions.AddRepositoryServices(builder.Services);
 
 CoreExtensions.AddCustomServices(builder.Services);
+CoreExtensions.AddAutoMapper(builder.Services);
 
 UIExtensions.AddServices(builder.Services);
 
